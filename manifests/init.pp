@@ -4,6 +4,6 @@ class plexmediaserver {
     require => Class['plexmediaserver::yum'],
   }
   class { 'plexmediaserver::service':
-    require => Class ['plexmediaserver::install'],
+    require => Class['plexmediaserver::install'],
   }
 }

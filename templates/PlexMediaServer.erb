@@ -1,27 +1,27 @@
 # Plex Media Server Config file.
 
 # Set Plex User
-PLEX_USER=plex
+PLEX_USER=<%= @plex_user %>
 # Set home of Plex Media Server 
-PLEX_MEDIA_SERVER_HOME=/usr/lib/plexmediaserver
+PLEX_MEDIA_SERVER_HOME=<%= @plex_media_server_home %>
 
 # Set home for Plex metadata
-PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="`getent passwd $PLEX_USER|awk -F : '{print $6}'`/Library/Application Support"
+PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="<%= @plex_media_server_application_support_dir  %>"
 
 # the number of plugins that can run at the same time
-PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=6
+PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=<%= @plex_media_server_max_plugin_procs %>
 
 # ulimit -s $PLEX_MEDIA_SERVER_MAX_STACK_SIZE
-PLEX_MEDIA_SERVER_MAX_STACK_SIZE=10000
+PLEX_MEDIA_SERVER_MAX_STACK_SIZE=<%= @plex_media_server_max_stack_size %>
 
 # ulimit -l $PLEX_MEDIA_SERVER_MAX_LOCK_MEM
-PLEX_MEDIA_SERVER_MAX_LOCK_MEM=3000
+PLEX_MEDIA_SERVER_MAX_LOCK_MEM=<%= @plex_media_server_max_lock_mem %>
 
 # ulimit -n $PLEX_MEDIA_SERVER_MAX_OPEN_FILES
-PLEX_MEDIA_SERVER_MAX_OPEN_FILES=4096
+PLEX_MEDIA_SERVER_MAX_OPEN_FILES=<%= @plex_media_server_max_open_files %>
 
 # where the mediaserver should store the transcodes
-PLEX_MEDIA_SERVER_TMPDIR=/tmp
+PLEX_MEDIA_SERVER_TMPDIR=<%= @plex_media_server_tmpdir %>
 
 # Enable syslog for Plex logging.
 # uncomment to enable
