@@ -1,5 +1,5 @@
 name    'WhatsARanjit-plexmediaserver'
-version '0.2.0'
+version '2.1.0'
 source 'https://github.com/WhatsARanjit/plex-media-server'
 author 'Ranjit Viswakumar'
 license 'Apache License, Version 2.0'

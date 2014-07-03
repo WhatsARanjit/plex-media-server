@@ -2,38 +2,52 @@ class plexmediaserver::params {
   # Get download URL
   case $::operatingsystem {
     'Darwin': {
-      $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/PlexMediaServer-0.9.9.12.504-3e7f93c-OSX.zip'
-      $plex_pkg = 'PlexMediaServer-0.9.9.12.504-3e7f93c-OSX.zip'
+      $plex_url      = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/PlexMediaServer-0.9.9.12.504-3e7f93c-OSX.zip'
+      $plex_pkg      = 'PlexMediaServer-0.9.9.12.504-3e7f93c-OSX.zip'
+      $plex_provider = 'pkgdmg'
     }
     'Ubuntu': {
-      $plex_url = $::architecture ? {
-        'i386'  => 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver_0.9.9.12.504-3e7f93c_i386.deb',
-        default => 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver_0.9.9.12.504-3e7f93c_amd64.deb',
+      case $::architecture {
+        'i386': {
+          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver_0.9.9.12.504-3e7f93c_i386.deb'
+          $plex_pkg = 'plexmediaserver_0.9.9.12.504-3e7f93c_i386.deb'
+        }
+        default : {
+          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver_0.9.9.12.504-3e7f93c_amd64.deb'
+          $plex_pkg = 'plexmediaserver_0.9.9.12.504-3e7f93c_amd64.deb'
+        }
       }
-      $plex_pkg = $::architecture ? {
-        'i386'  => 'plexmediaserver_0.9.9.12.504-3e7f93c_i386.deb',
-        default => 'plexmediaserver_0.9.9.12.504-3e7f93c_amd64.deb',
-      }
+      $plex_provider = 'dpkg'
+      $plex_ubuntu_deps = [ 'libavahi-core7', 'libdaemon0', 'avahi-daemon' ]
+      $plex_config = '/etc/default/plexmediaserver'
     }
     'Fedora': {
-      $plex_url = $::architecture ? {
-        'i386'  => 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver-0.9.9.12.504-3e7f93c.i386.rpm',
-        default => 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver-0.9.9.12.504-3e7f93c.x86_64.rpm',
+      case $::architecture {
+        'i386': {
+          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver-0.9.9.12.504-3e7f93c.i386.rpm'
+          $plex_pkg = 'plexmediaserver-0.9.9.12.504-3e7f93c.i386.rpm'
+        }
+        default : {
+          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver-0.9.9.12.504-3e7f93c.x86_64.rpm'
+          $plex_pkg = 'plexmediaserver-0.9.9.12.504-3e7f93c.x86_64.rpm'
+        }
       }
-      $plex_pkg = $::architecture ? {
-        'i386'  => 'plexmediaserver-0.9.9.12.504-3e7f93c.i386.rpm',
-        default => 'plexmediaserver-0.9.9.12.504-3e7f93c.x86_64.rpm',
-      }
+      $plex_provider = 'rpm'
+      $plex_config   = '/etc/sysconfig/PlexMediaServer'
     }
     'CentOS': {
-      $plex_url = $::architecture ? {
-        'i386'  => 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver-0.9.9.12.504-3e7f93c.i386.rpm',
-        default => 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver-0.9.9.12.504-3e7f93c.x86_64.rpm',
+      case $::architecture {
+        'i386': {
+          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver-0.9.9.12.504-3e7f93c.i386.rpm'
+          $plex_pkg = 'plexmediaserver-0.9.9.12.504-3e7f93c.i386.rpm'
+        }
+        default : {
+          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver-0.9.9.12.504-3e7f93c.x86_64.rpm'
+          $plex_pkg = 'plexmediaserver-0.9.9.12.504-3e7f93c.x86_64.rpm'
+        }
       }
-      $plex_pkg = $::architecture ? {
-        'i386'  => 'plexmediaserver-0.9.9.12.504-3e7f93c.i386.rpm',
-        default => 'plexmediaserver-0.9.9.12.504-3e7f93c.x86_64.rpm',
-      }
+      $plex_provider = 'rpm'
+      $plex_config   = '/etc/sysconfig/PlexMediaServer'
     }
     default: { fail("${::operatingsystem} is not supported by this module.") }
   }
