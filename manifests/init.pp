@@ -42,10 +42,8 @@ class plexmediaserver (
     ensure => installed,
   }
   if $::operatingsystem == 'ubuntu' {
-    package { 'libavahi-common-data': } -> package { 'libavahi-common3': } -> package { 'avahi-utils': } ->
-    package { $plexmediaserver::params::plex_ubuntu_deps:
-      before => Package['plexmediaserver'],
-    }
+    $packages = ['libavahi-common-data','libavahi-common3','avahi-utils',$plexmediaserver::params::plex_ubuntu_deps]
+    ensure_packages($packages)
   }
   package { 'plexmediaserver':
     provider => $plex_provider,
