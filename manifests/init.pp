@@ -1,4 +1,6 @@
 class plexmediaserver (
+  $plex_version                              =
+    $plexmediaserver::params::plex_version,
   $plex_url                                  =
     $plexmediaserver::params::plex_url,
   $plex_pkg                                  =
@@ -48,6 +50,7 @@ class plexmediaserver (
   package { 'plexmediaserver':
     provider => $plex_provider,
     source   => "/tmp/${plex_pkg}",
+    ensure   => 'latest',
   }
   if $plexmediaserver::params::plex_config {
     file { 'plexconfig':

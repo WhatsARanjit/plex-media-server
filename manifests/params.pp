@@ -1,20 +1,23 @@
 class plexmediaserver::params {
+  # Set Plex version
+  $plex_version = '0.9.12.13.1464-4ccd2ca'
+
   # Get download URL
   case $::operatingsystem {
     'Darwin': {
-      $plex_url      = 'https://downloads.plex.tv/plex-media-server/0.9.12.11.1406-8403350/PlexMediaServer-0.9.12.11.1406-8403350-OSX.zip'
-      $plex_pkg      = 'PlexMediaServer-0.9.12.11.1406-8403350-OSX.zip'
+      $plex_url      = "https://downloads.plex.tv/plex-media-server/${plex_version}/PlexMediaServer-${plex_version}-OSX.zip"
+      $plex_pkg      = "PlexMediaServer-${plex_version}-OSX.zip"
       $plex_provider = 'pkgdmg'
     }
     'Ubuntu': {
       case $::architecture {
         'i386': {
-          $plex_url = 'https://downloads.plex.tv/plex-media-server/0.9.12.11.1406-8403350/plexmediaserver_0.9.12.11.1406-8403350_i386.deb'
-          $plex_pkg = 'plexmediaserver_0.9.12.11.1406-8403350_i386.deb'
+          $plex_url = "https://downloads.plex.tv/plex-media-server/${plex_version}/plexmediaserver_${plex_version}_i386.deb"
+          $plex_pkg = "plexmediaserver_${plex_version}_i386.deb"
         }
         default : {
-          $plex_url = 'https://downloads.plex.tv/plex-media-server/0.9.12.11.1406-8403350/plexmediaserver_0.9.12.11.1406-8403350_amd64.deb'
-          $plex_pkg = 'plexmediaserver_0.9.12.11.1406-8403350_amd64.deb'
+          $plex_url = "https://downloads.plex.tv/plex-media-server/${plex_version}/plexmediaserver_${plex_version}_amd64.deb"
+          $plex_pkg = "plexmediaserver_${plex_version}_amd64.deb"
         }
       }
       $plex_provider = 'dpkg'
@@ -24,12 +27,12 @@ class plexmediaserver::params {
     'Fedora': {
       case $::architecture {
         'i386': {
-          $plex_url = 'https://downloads.plex.tv/plex-media-server/0.9.12.11.1406-8403350/plexmediaserver-0.9.12.11.1406-8403350.i386.rpm'
-          $plex_pkg = 'plexmediaserver-0.9.12.11.1406-8403350.i386.rpm'
+          $plex_url = "https://downloads.plex.tv/plex-media-server/${plex_version}/plexmediaserver-${plex_version}.i386.rpm"
+          $plex_pkg = "plexmediaserver-${plex_version}.i386.rpm"
         }
         default : {
-          $plex_url = 'https://downloads.plex.tv/plex-media-server/0.9.12.11.1406-8403350/plexmediaserver-0.9.12.11.1406-8403350.x86_64.rpm'
-          $plex_pkg = 'plexmediaserver-0.9.12.11.1406-8403350.x86_64.rpm'
+          $plex_url = "https://downloads.plex.tv/plex-media-server/${plex_version}/plexmediaserver-${plex_version}.x86_64.rpm"
+          $plex_pkg = "plexmediaserver-${plex_version}.x86_64.rpm"
         }
       }
       $plex_provider = 'rpm'
@@ -38,12 +41,12 @@ class plexmediaserver::params {
     'CentOS': {
       case $::architecture {
         'i386': {
-          $plex_url = 'https://downloads.plex.tv/plex-media-server/0.9.12.11.1406-8403350/plexmediaserver-0.9.12.11.1406-8403350.i386.rpm'
-          $plex_pkg = 'plexmediaserver-0.9.12.11.1406-8403350.i386.rpm'
+          $plex_url = "https://downloads.plex.tv/plex-media-server/${plex_version}/plexmediaserver-${plex_version}.i386.rpm"
+          $plex_pkg = "plexmediaserver-${plex_version}.i386.rpm"
         }
         default : {
-          $plex_url = 'https://downloads.plex.tv/plex-media-server/0.9.12.11.1406-8403350/plexmediaserver-0.9.12.11.1406-8403350.x86_64.rpm'
-          $plex_pkg = 'plexmediaserver-0.9.12.11.1406-8403350.x86_64.rpm'
+          $plex_url = "https://downloads.plex.tv/plex-media-server/${plex_version}/plexmediaserver-${plex_version}.x86_64.rpm"
+          $plex_pkg = "plexmediaserver-${plex_version}.x86_64.rpm"
         }
       }
       $plex_provider = 'rpm'
