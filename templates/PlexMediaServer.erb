@@ -1,12 +1,4 @@
-# Plex Media Server Config file.
-
-# Set Plex User
-PLEX_USER=<%= @plex_user %>
-# Set home of Plex Media Server 
-PLEX_MEDIA_SERVER_HOME=<%= @plex_media_server_home %>
-
-# Set home for Plex metadata
-PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="<%= @plex_media_server_application_support_dir  %>"
+# default script for Plex Media Server
 
 # the number of plugins that can run at the same time
 PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=<%= @plex_media_server_max_plugin_procs %>
@@ -14,33 +6,14 @@ PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=<%= @plex_media_server_max_plugin_procs %>
 # ulimit -s $PLEX_MEDIA_SERVER_MAX_STACK_SIZE
 PLEX_MEDIA_SERVER_MAX_STACK_SIZE=<%= @plex_media_server_max_stack_size %>
 
-# ulimit -l $PLEX_MEDIA_SERVER_MAX_LOCK_MEM
-PLEX_MEDIA_SERVER_MAX_LOCK_MEM=<%= @plex_media_server_max_lock_mem %>
-
-# ulimit -n $PLEX_MEDIA_SERVER_MAX_OPEN_FILES
-PLEX_MEDIA_SERVER_MAX_OPEN_FILES=<%= @plex_media_server_max_open_files %>
-
 # where the mediaserver should store the transcodes
 PLEX_MEDIA_SERVER_TMPDIR=<%= @plex_media_server_tmpdir %>
 
-# Enable syslog for Plex logging.
-# uncomment to enable
-# export PLEX_MEDIA_SERVER_USE_SYSLOG=true
+# uncomment to set it to something else
+# PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="<%= @plex_media_server_application_support_dir  %>"
 
-# uncomment to set it to alternative support dir, eg. /opt/plex
-# NOTE: Plex user must be able to write to this dir
-#
-# PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="/opt/plex/Library/Application Support"
-
-export LD_LIBRARY_PATH="${PLEX_MEDIA_SERVER_HOME}"
-export TMPDIR="${PLEX_MEDIA_SERVER_TMPDIR}"
-export PLEX_MEDIA_SERVER_HOME=$PLEX_MEDIA_SERVER_HOME
-export PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR=$PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR
-export PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=$PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS
-export PLEX_MEDIA_SERVER_TMPDIR=$PLEX_MEDIA_SERVER_TMPDIR
-export LD_LIBRARY_PATH=$PLEX_MEDIA_SERVER_HOME
-export LC_ALL="en_US.UTF-8"
-export LANG="en_US.UTF-8"
-ulimit -l $PLEX_MEDIA_SERVER_MAX_LOCK_MEM
-ulimit -s $PLEX_MEDIA_SERVER_MAX_STACK_SIZE
-ulimit -n $PLEX_MEDIA_SERVER_MAX_OPEN_FILES
+# the user that PMS should run as, defaults to 'plex'
+# note that if you change this you might need to move
+# the Application Support directory to not lose your
+# media library
+PLEX_MEDIA_SERVER_USER=<%= @plex_user %>
