@@ -25,7 +25,7 @@ class plexmediaserver (
   case $::operatingsystem {
     'Darwin': {
       staging::deploy { $plex_pkg:
-        source => $plex_url,
+        source => "${plex_url}/${plex_pkg}",
         target => '/tmp',
         before => Package['plexmediaserver'],
       }

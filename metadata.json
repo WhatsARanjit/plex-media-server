@@ -1,6 +1,6 @@
 {
   "name": "WhatsARanjit-plexmediaserver",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "author": "WhatsARanjit",
   "summary": "This module installs and manages Plex Media Server",
   "license": "Apache 2.0",
@@ -11,6 +11,10 @@
     {
       "name": "puppetlabs-stdlib",
       "version_range": ">= 1.0.0"
+    },
+    {
+      "name": "nanliu-staging",
+      "version_range": ">= 1.0.3"
     }
   ],
   "operatingsystem_support": [
@@ -21,11 +25,18 @@
       "operatingsystem": "CentOS"
     },
     {
-      "operatingsystem": "Debian"
+      "operatingsystem": "Fedora"
     },
     {
       "operatingsystem": "Ubuntu"
     }
   ],
-  "tags": ["Debian", "Ubuntu", "RedHat", "plex", "plexmediaserver", "CentOS"]
+  "tags": [
+    "Fedora",
+    "Ubuntu",
+    "RedHat",
+    "plex",
+    "plexmediaserver",
+    "CentOS"
+  ]
 }

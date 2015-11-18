@@ -2,18 +2,18 @@ class plexmediaserver::params {
   # Get download URL
   case $::operatingsystem {
     'Darwin': {
-      $plex_url      = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/PlexMediaServer-0.9.9.12.504-3e7f93c-OSX.zip'
+      $plex_url      = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c'
       $plex_pkg      = 'PlexMediaServer-0.9.9.12.504-3e7f93c-OSX.zip'
       $plex_provider = 'pkgdmg'
     }
     'Ubuntu': {
       case $::architecture {
         'i386': {
-          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver_0.9.9.12.504-3e7f93c_i386.deb'
+          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c'
           $plex_pkg = 'plexmediaserver_0.9.9.12.504-3e7f93c_i386.deb'
         }
         default : {
-          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver_0.9.9.12.504-3e7f93c_amd64.deb'
+          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c'
           $plex_pkg = 'plexmediaserver_0.9.9.12.504-3e7f93c_amd64.deb'
         }
       }
@@ -24,11 +24,11 @@ class plexmediaserver::params {
     'Fedora': {
       case $::architecture {
         'i386': {
-          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver-0.9.9.12.504-3e7f93c.i386.rpm'
+          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c'
           $plex_pkg = 'plexmediaserver-0.9.9.12.504-3e7f93c.i386.rpm'
         }
         default : {
-          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver-0.9.9.12.504-3e7f93c.x86_64.rpm'
+          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c'
           $plex_pkg = 'plexmediaserver-0.9.9.12.504-3e7f93c.x86_64.rpm'
         }
       }
@@ -38,11 +38,11 @@ class plexmediaserver::params {
     'CentOS': {
       case $::architecture {
         'i386': {
-          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver-0.9.9.12.504-3e7f93c.i386.rpm'
+          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c'
           $plex_pkg = 'plexmediaserver-0.9.9.12.504-3e7f93c.i386.rpm'
         }
         default : {
-          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c/plexmediaserver-0.9.9.12.504-3e7f93c.x86_64.rpm'
+          $plex_url = 'http://downloads.plexapp.com/plex-media-server/0.9.9.12.504-3e7f93c'
           $plex_pkg = 'plexmediaserver-0.9.9.12.504-3e7f93c.x86_64.rpm'
         }
       }
@@ -51,8 +51,7 @@ class plexmediaserver::params {
     }
     default: { fail("${::operatingsystem} is not supported by this module.") }
   }
-  # Whether or not to manage the staging module
-  $plex_staging = false
+
   # General stuff
   $plex_user                                       = 'plex'
   $plex_media_server_home                          = '/usr/lib/plexmediaserver'
@@ -61,7 +60,7 @@ class plexmediaserver::params {
     '/Library/Application Support'
   ]
   $plex_media_server_application_support_dir =
-    join($plex_media_server_application_support_dir_array, ' ')
+    join($plex_media_server_application_support_dir_array, '')
   $plex_media_server_max_plugin_procs        = '6'
   $plex_media_server_max_stack_size          = '10000'
   $plex_media_server_max_lock_mem            = '3000'
