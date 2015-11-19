@@ -32,7 +32,7 @@ class plexmediaserver (
     }
     default: {
       staging::file { $plex_pkg:
-        source => $plex_url,
+        source => "${plex_url}/${plex_pkg}",
         target => "/tmp/${plex_pkg}",
         before => Package['plexmediaserver'],
       }
