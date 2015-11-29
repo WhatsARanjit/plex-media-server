@@ -1,3 +1,4 @@
+# Main Class
 class plexmediaserver (
   $plex_url                                  =
     $plexmediaserver::params::plex_url,
