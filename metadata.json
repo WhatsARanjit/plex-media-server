@@ -13,8 +13,8 @@
       "version_range": ">= 1.0.0"
     },
     {
-      "name": "nanliu-staging",
-      "version_range": ">= 1.0.3"
+      "name": "puppet-archive",
+      "version_range": ">= v0.4.1"
     }
   ],
   "operatingsystem_support": [

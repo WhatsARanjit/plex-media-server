@@ -47,7 +47,7 @@ describe 'plexmediaserver', :type => :class do
       :architecture    => 'i386',
     }
     end
-    it { should contain_staging__file('plexmediaserver-0.9.12.19.1537-f38ac80.i386.rpm') }
+    it { should contain_archive('/tmp/plexmediaserver-0.9.12.19.1537-f38ac80.i386.rpm') }
   end
 
   context "on a CentOS 64-bit system" do
@@ -58,7 +58,7 @@ describe 'plexmediaserver', :type => :class do
       :architecture    => 'x86_64',
     }
     end
-    it { should contain_staging__file('plexmediaserver-0.9.12.19.1537-f38ac80.x86_64.rpm') }
+    it { should contain_archive('/tmp/plexmediaserver-0.9.12.19.1537-f38ac80.x86_64.rpm') }
   end
 
   context "on a Darwin system" do
@@ -68,7 +68,11 @@ describe 'plexmediaserver', :type => :class do
       :operatingsystem => 'Darwin',
     }
     end
-    it { should contain_staging__deploy('PlexMediaServer-0.9.12.19.1537-f38ac80-OSX.zip') }
+    it { should contain_archive('/tmp/PlexMediaServer-0.9.12.19.1537-f38ac80-OSX.zip').with(
+        extract_path => '/tmp',
+        extract      => true,
+      )
+    }
   end
 
   context "on a Ubuntu 32-bit system" do
@@ -78,7 +82,7 @@ describe 'plexmediaserver', :type => :class do
       :architecture    => 'i386',
     }
     end
-    it { should contain_staging__file('plexmediaserver_0.9.12.19.1537-f38ac80_i386.deb') }
+    it { should contain_archive('/tmp/plexmediaserver_0.9.12.19.1537-f38ac80_i386.deb') }
   end
 
   context "on a Ubuntu 64-bit system" do
@@ -89,7 +93,7 @@ describe 'plexmediaserver', :type => :class do
       :architecture    => 'amd64',
     }
     end
-    it { should contain_staging__file('plexmediaserver_0.9.12.19.1537-f38ac80_amd64.deb') }
+    it { should contain_archive('/tmp/plexmediaserver_0.9.12.19.1537-f38ac80_amd64.deb') }
   end
 
 end

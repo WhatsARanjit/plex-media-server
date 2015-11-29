@@ -1,3 +1,4 @@
+# Main Class
 class plexmediaserver (
   $plex_url                                  =
     $plexmediaserver::params::plex_url,
@@ -24,16 +25,16 @@ class plexmediaserver (
 ) inherits plexmediaserver::params {
   case $::operatingsystem {
     'Darwin': {
-      staging::deploy { $plex_pkg:
-        source => "${plex_url}/${plex_pkg}",
-        target => '/tmp',
-        before => Package['plexmediaserver'],
+      archive { "/tmp/${plex_pkg}":
+        source       => "${plex_url}/${plex_pkg}",
+        extract_path => '/tmp',
+        extract      => true,
+        before       => Package['plexmediaserver'],
       }
     }
     default: {
-      staging::file { $plex_pkg:
+      archive { "/tmp/${plex_pkg}":
         source => "${plex_url}/${plex_pkg}",
-        target => "/tmp/${plex_pkg}",
         before => Package['plexmediaserver'],
       }
     }
