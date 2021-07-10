@@ -18,6 +18,8 @@ Requires:
 ## Plex Media Server Parameters
 See Plex documentation for variable definitions.
 
+* `plex_install_latest`<br />
+  Default: false
 * `plex_user`<br />
 Default: plex
 * `plex_media_server_home`<br />
@@ -43,10 +45,11 @@ Install plexmediaserver:
 include plexmediaserver
 ```
 
-Install plexmedia server with custom parameters:
+Install latest plexmedia server with custom parameters:
 
 ```puppet
 class { 'plexmediaserver':
+  plex_install_latest                       => true,
   plex_user                                 => 'foo',
   plex_media_server_home                    => '/usr/share/lib/plexmediaserver',
   plex_media_server_application_support_dir => "`getent passwd $PLEX_USER|awk -F : '{print $6}'`/My Documents/Application Support",

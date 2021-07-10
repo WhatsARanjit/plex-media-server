@@ -42,4 +42,5 @@ class plexmediaserver::params {
   $plex_media_server_max_lock_mem            = '3000'
   $plex_media_server_max_open_files          = '4096'
   $plex_media_server_tmpdir                  = '/tmp'
+  $plex_install_latest                       = false
 }

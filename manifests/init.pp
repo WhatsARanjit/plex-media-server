@@ -1,12 +1,14 @@
 class plexmediaserver (
+  $plex_provider                             =
+    $plexmediaserver::params::plex_provider,
   $plex_url                                  =
     $plexmediaserver::params::plex_url,
   $plex_pkg                                  =
     $plexmediaserver::params::plex_pkg,
-  $plex_provider                             =
-    $plexmediaserver::params::plex_provider,
   $plex_user                                 =
     $plexmediaserver::params::plex_user,
+  $plex_install_latest                       =
+    $plexmediaserver::params::plex_install_latest,
   $plex_media_server_home                    =
     $plexmediaserver::params::plex_media_server_home,
   $plex_media_server_application_support_dir =
@@ -22,18 +24,28 @@ class plexmediaserver (
   $plex_media_server_tmpdir                  =
     $plexmediaserver::params::plex_media_server_tmpdir
 ) inherits plexmediaserver::params {
-  case $::operatingsystem {
+  # Fetch latest version from plex website
+  if ($plex_install_latest) {
+    $plex_latest = latest_version($::facts['os']['family'].downcase())
+    notice("Automatically selecting latest plex package: ${plex_latest['pkg']}")
+    $source = "${plex_latest['url']}/${plex_latest['pkg']}"
+    $tmp_path =  "/tmp/${plex_latest['pkg']}"
+  } else {
+    $source = "${plex_url}/${plex_pkg}"
+    $tmp_path =  "/tmp/${plex_pkg}"
+  }
+  case $::facts['os']['name'] {
     'Darwin': {
       staging::deploy { $plex_pkg:
-        source => "${plex_url}/${plex_pkg}",
-        target => '/tmp',
+        source => $source,
+        target => $tmp_path,
         before => Package['plexmediaserver'],
       }
     }
     default: {
       staging::file { $plex_pkg:
-        source => "${plex_url}/${plex_pkg}",
-        target => "/tmp/${plex_pkg}",
+        source => $source,
+        target => $tmp_path,
         before => Package['plexmediaserver'],
       }
     }
@@ -41,7 +53,7 @@ class plexmediaserver (
   Package {
     ensure => installed,
   }
-  if $::operatingsystem == 'ubuntu' {
+  if $::facts['os']['name'] == 'ubuntu' {
     package { 'libavahi-common-data': } -> package { 'libavahi-common3': } -> package { 'avahi-utils': } ->
     package { $plexmediaserver::params::plex_ubuntu_deps:
       before => Package['plexmediaserver'],
@@ -49,7 +61,7 @@ class plexmediaserver (
   }
   package { 'plexmediaserver':
     provider => $plex_provider,
-    source   => "/tmp/${plex_pkg}",
+    source   => $tmp_path,
   }
   if $plexmediaserver::params::plex_config {
     file { 'plexconfig':
@@ -69,6 +81,10 @@ class plexmediaserver (
   service { 'plexmediaserver':
     ensure    => running,
     enable    => true,
+    provider  => $::facts['os']['name'] ? {
+      'Darwin' => 'launchd',
+      default  => 'systemd'
+    },
     subscribe => $subscription_file,
   }
 }
