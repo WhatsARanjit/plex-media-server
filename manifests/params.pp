@@ -5,6 +5,7 @@ class plexmediaserver::params {
       $plex_url      = 'https://downloads.plex.tv/plex-media-server/0.9.12.19.1537-f38ac80'
       $plex_pkg      = 'PlexMediaServer-0.9.12.19.1537-f38ac80-OSX.zip'
       $plex_provider = 'pkgdmg'
+      $plex_config   = undef
     }
     'Ubuntu': {
       $plex_url         = 'https://downloads.plex.tv/plex-media-server/0.9.12.19.1537-f38ac80'

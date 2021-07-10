@@ -26,7 +26,7 @@ class plexmediaserver (
 ) inherits plexmediaserver::params {
   # Fetch latest version from plex website
   if ($plex_install_latest) {
-    $plex_latest = latest_version($::facts['os']['family'].downcase())
+    $plex_latest = latest_version($::osfamily.downcase())
     notice("Automatically selecting latest plex package: ${plex_latest['pkg']}")
     $source = "${plex_latest['url']}/${plex_latest['pkg']}"
     $tmp_path =  "/tmp/${plex_latest['pkg']}"
@@ -34,7 +34,7 @@ class plexmediaserver (
     $source = "${plex_url}/${plex_pkg}"
     $tmp_path =  "/tmp/${plex_pkg}"
   }
-  case $::facts['os']['name'] {
+  case $::operatingsystem {
     'Darwin': {
       staging::deploy { $plex_pkg:
         source => $source,
@@ -53,7 +53,7 @@ class plexmediaserver (
   Package {
     ensure => installed,
   }
-  if $::facts['os']['name'] == 'ubuntu' {
+  if $::operatingsystem == 'Ubuntu' {
     package { 'libavahi-common-data': } -> package { 'libavahi-common3': } -> package { 'avahi-utils': } ->
     package { $plexmediaserver::params::plex_ubuntu_deps:
       before => Package['plexmediaserver'],
@@ -81,7 +81,7 @@ class plexmediaserver (
   service { 'plexmediaserver':
     ensure    => running,
     enable    => true,
-    provider  => $::facts['os']['name'] ? {
+    provider  => $::operatingsystem ? {
       'Darwin' => 'launchd',
       default  => 'systemd'
     },
