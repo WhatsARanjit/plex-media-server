@@ -4,14 +4,13 @@ describe 'plexmediaserver', :type => :class do
   let :pre_condition do
     [
       (MockResource.new 'staging::deploy', { :type => :define, :params => { :source => nil, :target => nil } }).render,
-      (MockResource.new 'staging::file',   { :type => :define, :params => { :source => nil, :target => nil } }).render
+      (MockResource.new 'staging::file',   { :type => :define, :params => { :source => nil, :target => nil } }).render,
     ]
   end
 
   context "on all operating systems" do
     let(:facts) do
       {
-        :staging_http_get => 'curl',
         :operatingsystem  => 'CentOS',
         :osfamily         => 'Redhat',
         :architecture     => 'x86_64'
@@ -27,7 +26,6 @@ describe 'plexmediaserver', :type => :class do
   context "without custom parameters" do
     let(:facts) do
       {
-        :staging_http_get => 'curl',
         :operatingsystem  => 'CentOS',
         :osfamily         => 'Redhat',
         :architecture     => 'x86_64'
@@ -40,7 +38,6 @@ describe 'plexmediaserver', :type => :class do
   context "with custom parameters" do
     let :facts do
     {
-      :staging_http_get => 'curl',
       :operatingsystem  => 'CentOS',
       :osfamily         => 'Redhat',
       :architecture     => 'x86_64'
@@ -59,7 +56,6 @@ describe 'plexmediaserver', :type => :class do
   context "on a CentOS 32-bit system" do
     let :facts do
     {
-      :staging_http_get => 'curl',
       :operatingsystem  => 'CentOS',
       :osfamily         => 'Redhat',
       :architecture     => 'i386'
@@ -72,7 +68,6 @@ describe 'plexmediaserver', :type => :class do
 
     let :facts do
     {
-      :staging_http_get => 'curl',
       :operatingsystem  => 'CentOS',
       :osfamily         => 'Redhat',
       :architecture     => 'x86_64'
@@ -85,7 +80,6 @@ describe 'plexmediaserver', :type => :class do
 
     let :facts do
     {
-      :staging_http_get => 'curl',
       :operatingsystem  => 'Darwin',
       :osfamily         => 'OSX',
       :architecture     => 'x86_64'
@@ -97,7 +91,6 @@ describe 'plexmediaserver', :type => :class do
   context "on a Ubuntu 32-bit system" do
     let :facts do
     {
-      :staging_http_get => 'curl',
       :operatingsystem => 'Ubuntu',
       :osfamily        => 'Debian',
       :architecture    => 'i386',
@@ -110,7 +103,6 @@ describe 'plexmediaserver', :type => :class do
 
     let :facts do
     {
-      :staging_http_get => 'curl',
       :operatingsystem => 'Ubuntu',
       :osfamily        => 'Debian',
       :architecture    => 'amd64',
@@ -118,5 +110,4 @@ describe 'plexmediaserver', :type => :class do
     end
     it { should contain_staging__file('plexmediaserver_0.9.12.19.1537-f38ac80_amd64.deb') }
   end
-
 end

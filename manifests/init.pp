@@ -26,7 +26,7 @@ class plexmediaserver (
 ) inherits plexmediaserver::params {
   # Fetch latest version from plex website
   if ($plex_install_latest) {
-    $plex_latest = latest_version($::osfamily.downcase())
+    $plex_latest = latest_version($::osfamily)
     notice("Automatically selecting latest plex package: ${plex_latest['pkg']}")
     $source = "${plex_latest['url']}/${plex_latest['pkg']}"
     $tmp_path =  "/tmp/${plex_latest['pkg']}"

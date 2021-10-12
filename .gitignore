@@ -1,2 +1,5 @@
+modules/*
 pkg/*
 spec/fixtures/*
+Gemfile.lock
+Puppetfile.lock
