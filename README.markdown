@@ -1,5 +1,5 @@
 # Plex Media Server  Module
-[![Build Status](https://travis-ci.org/WhatsARanjit/plex-media-server.svg)](https://travis-ci.org/WhatsARanjit/plex-media-server)
+[![Build Status](https://app.travis-ci.com/jaysphoto/plex-media-server.svg?branch=master)](https://app.travis-ci.com/jaysphoto/plex-media-server)
 
 ## Overview
 
