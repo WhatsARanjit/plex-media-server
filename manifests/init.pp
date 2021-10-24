@@ -54,8 +54,10 @@ class plexmediaserver (
     ensure => installed,
   }
   if $::operatingsystem == 'Ubuntu' {
-    package { 'libavahi-common-data': } -> package { 'libavahi-common3': } -> package { 'avahi-utils': } ->
-    package { $plexmediaserver::params::plex_ubuntu_deps:
+    package { 'libavahi-common-data': }
+    -> package { 'libavahi-common3': }
+    -> package { 'avahi-utils': }
+    -> package { $plexmediaserver::params::plex_ubuntu_deps:
       before => Package['plexmediaserver'],
     }
   }
@@ -78,13 +80,14 @@ class plexmediaserver (
     undef   => undef,
     default => File['plexconfig'],
   }
+  $provider = $::operatingsystem ? {
+    'Darwin' => 'launchd',
+    default  => 'systemd'
+  }
   service { 'plexmediaserver':
     ensure    => running,
     enable    => true,
-    provider  => $::operatingsystem ? {
-      'Darwin' => 'launchd',
-      default  => 'systemd'
-    },
+    provider  => $provider,
     subscribe => $subscription_file,
   }
 }
