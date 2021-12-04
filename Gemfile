@@ -11,3 +11,4 @@ gem 'rspec-expectations'
 gem 'rspec-puppet',           :require => false
 gem 'rspec-puppet-utils',     :require => false
 gem 'rspec-core',             :require => false
+gem 'webmock',                :require => false

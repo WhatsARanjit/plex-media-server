@@ -24,70 +24,52 @@ class plexmediaserver (
   $plex_media_server_tmpdir                  =
     $plexmediaserver::params::plex_media_server_tmpdir
 ) inherits plexmediaserver::params {
-  # Fetch latest version from plex website
+
+  $plex_installer = $::operatingsystem ? {
+    'Darwin' => 'plexmediaserver::darwin',
+    default  => 'plexmediaserver::linux',
+  }
+
   if ($plex_install_latest) {
+    # Fetch latest version from plex website
     $plex_latest = latest_version($::osfamily)
     notice("Automatically selecting latest plex package: ${plex_latest['pkg']}")
-    $source = "${plex_latest['url']}/${plex_latest['pkg']}"
-    $tmp_path =  "/tmp/${plex_latest['pkg']}"
+    class { $plex_installer:
+      package => $plex_latest['pkg'],
+      source  => "${plex_latest['url']}/${plex_latest['pkg']}",
+    }
   } else {
-    $source = "${plex_url}/${plex_pkg}"
-    $tmp_path =  "/tmp/${plex_pkg}"
-  }
-  case $::operatingsystem {
-    'Darwin': {
-      staging::deploy { $plex_pkg:
-        source => $source,
-        target => $tmp_path,
-        before => Package['plexmediaserver'],
-      }
-    }
-    default: {
-      staging::file { $plex_pkg:
-        source => $source,
-        target => $tmp_path,
-        before => Package['plexmediaserver'],
-      }
+    class { $plex_installer:
+      package => $plex_pkg,
+      source  => "${plex_url}/${plex_pkg}",
     }
   }
-  Package {
-    ensure => installed,
-  }
-  if $::operatingsystem == 'Ubuntu' {
-    package { 'libavahi-common-data': }
-    -> package { 'libavahi-common3': }
-    -> package { 'avahi-utils': }
-    -> package { $plexmediaserver::params::plex_ubuntu_deps:
-      before => Package['plexmediaserver'],
-    }
-  }
+
   package { 'plexmediaserver':
+    ensure   => installed,
     provider => $plex_provider,
-    source   => $tmp_path,
+    source   => getvar("${plex_installer}::pkg_target"),
+    require  => Class[$plex_installer],
   }
-  if $plexmediaserver::params::plex_config {
+
+  $plex_config = getvar("${plex_installer}::plex_config")
+
+  if $plex_config {
     file { 'plexconfig':
       ensure  => file,
-      path    => $plexmediaserver::params::plex_config,
+      path    => $plex_config,
       owner   => 'root',
       group   => 'root',
       mode    => '0775',
       content => template("${module_name}/PlexMediaServer.erb"),
       require => Package['plexmediaserver'],
+      notify  => Service['plexmediaserver']
     }
   }
-  $subscription_file = $plexmediaserver::params::plex_config ? {
-    undef   => undef,
-    default => File['plexconfig'],
-  }
-  $provider = $::operatingsystem ? {
-    'Darwin' => 'launchd',
-    default  => 'systemd'
-  }
+
   service { 'plexmediaserver':
-    ensure    => running,
-    enable    => true,
-    provider  => $provider,
-    subscribe => $subscription_file,
+    ensure   => running,
+    enable   => true,
+    provider => getvar("${plex_installer}::service_provider"),
   }
 }

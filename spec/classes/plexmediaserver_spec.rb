@@ -110,4 +110,21 @@ describe 'plexmediaserver', :type => :class do
     end
     it { should contain_staging__file('plexmediaserver_0.9.12.19.1537-f38ac80_amd64.deb') }
   end
+
+  context "latest version on a Ubuntu 64-bit system" do
+
+    let :facts do
+      {
+        :operatingsystem => 'Ubuntu',
+        :osfamily        => 'Debian',
+        :architecture    => 'amd64',
+      }
+    end
+    let :params do
+      {
+        :plex_install_latest => true
+      }
+    end
+    it { should contain_staging__file('plexmediaserver_latest_version-hash_amd64.deb') }
+  end
 end
