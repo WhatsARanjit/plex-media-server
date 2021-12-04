@@ -21,21 +21,21 @@ See Plex documentation for variable definitions.
 * `plex_install_latest`<br />
   Default: false
 * `plex_user`<br />
-Default: plex
+  Default: plex
 * `plex_media_server_home`<br />
-Default: /usr/lib/plexmediaserver
+  Default: /usr/lib/plexmediaserver
 * `plex_media_server_application_support_dir`<br />
-Default: \`getent passwd $plex_user|awk -F : '{print $6}'`/Library/Application Support
+  Default: \`getent passwd $plex_user|awk -F : '{print $6}'`/Library/Application Support
 * `plex_media_server_max_plugin_procs`<br />
-Default: 6
+  Default: 6
 * `plex_media_server_max_stack_size`<br />
-Default: 10000
+  Default: 10000
 * `plex_media_server_max_lock_mem`<br />
-Default: 3000
+  Default: 3000
 * `plex_media_server_max_open_files`<br />
-Default: 4096
+  Default: 4096
 * `plex_media_server_tmpdir`<br />
-Default: /tmp
+  Default: /tmp
 
 ## Example Usage
 

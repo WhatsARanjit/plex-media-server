@@ -1,20 +1,20 @@
 {
-  "name": "WhatsARanjit-plexmediaserver",
-  "version": "2.2.0",
+  "name": "jaysphoto-plexmediaserver",
+  "version": "2.3.0",
   "author": "WhatsARanjit",
   "summary": "This module installs and manages Plex Media Server",
   "license": "Apache 2.0",
-  "source": "https://github.com/WhatsARanjit/plex-media-server",
-  "project_page": "https://github.com/WhatsARanjit/plex-media-server",
-  "issues_url": "https://github.com/WhatsARanjit/plex-media-server/issues",
+  "source": "https://github.com/jaysphoto/plex-media-server",
+  "project_page": "https://github.com/jaysphoto/plex-media-server",
+  "issues_url": "https://github.com/jaysphoto/plex-media-server/issues",
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
-      "version_range": ">= 1.0.0"
+      "version_requirement": ">= 1.0.0"
     },
     {
       "name": "nanliu-staging",
-      "version_range": ">= 1.0.3"
+      "version_requirement": ">= 1.0.3"
     }
   ],
   "operatingsystem_support": [
@@ -31,6 +31,12 @@
       "operatingsystem": "Ubuntu"
     }
   ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 5.5.0 < 8.0.0"
+    }
+  ],
   "tags": [
     "Fedora",
     "Ubuntu",
@@ -38,5 +44,8 @@
     "plex",
     "plexmediaserver",
     "CentOS"
-  ]
+  ],
+  "pdk-version": "2.3.0",
+  "template-url": "pdk-default#2.3.0",
+  "template-ref": "tags/2.3.0-0-g8aaceff"
 }
